@@ -34,11 +34,16 @@ const sgoEventsCache = new Map();
 const PACIFIC_TIMEZONE = "America/Los_Angeles";
 
 function formatEspnDate(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}${month}${day}`;
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: PACIFIC_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  })
+    .format(new Date(date))
+    .replace(/-/g, "");
 }
+
 
 function addDays(date, days) {
   const next = new Date(date);
